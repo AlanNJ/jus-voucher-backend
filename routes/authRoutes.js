@@ -3,6 +3,7 @@ const router = require("express").Router();
 const messageController = require("../controllers/contactMessages");
 
 router.post("/add-user", userController.addUser);
+router.post("/login-user", userController.loginUser);
 router.get("/get-all-user", userController.getAllUser);
 router.get("/get-single-user/:id", userController.getSingleUser);
 router.delete("/delete-user/:id", userController.deleteUser);

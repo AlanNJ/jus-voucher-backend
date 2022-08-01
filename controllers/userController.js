@@ -88,16 +88,8 @@ const loginUser = async (req, res) => {
 		}
 		const exist = await User.findOne({ where: { email } });
 		if (exist) {
-			const salt = await bcrypt.genSalt(12);
-			const validatePassword = await bcrypt.compare(password, exist.password);
-			if (validatePassword) {
-				const token = jwt.sign({ _id: exist.USER_ID }, process.env.JWT_SECRET, {
-					expiresIn: "7d",
-				});
-
-				res
-					.status(200)
-					.send({ message: "Logged In Successfully", token, exist });
+			if (exist.password === password) {
+				res.status(200).send({ message: "Logged In Successfully", exist });
 			} else {
 				res.status(400).send({ message: "Password Didnt Match" });
 			}
