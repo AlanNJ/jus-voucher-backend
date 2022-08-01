@@ -64,6 +64,7 @@ const deleteBlog = async (req, res) => {
 
 		const filePath = `./public/BlogImages/${fileItem.dataValues.img}`;
 		DeleteFile(filePath);
+		Comment.destroy({ where: { blog_id: id } });
 		const items = await Blog.destroy({ where: { id: id } });
 		res.status(200).send({ success: true, items });
 	} catch (err) {

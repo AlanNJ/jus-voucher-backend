@@ -11,4 +11,8 @@ router.delete("/delete-user/:id", userController.deleteUser);
 
 router.get("/get-all-messages", messageController.getAllMessages);
 router.post("/send-message", messageController.sendMessage);
+
+router.get("/get-all-quotes", userController.getAllQuotes);
+router.post("/add-quote", userController.addQuotes);
+router.put("/approve-admin/:id", userController.approveAdmin);
 module.exports = router;

@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const User = db.user;
+const Quotes = db.quotes;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -122,4 +123,40 @@ const getSingleUser = async (req, res) => {
 		console.log(err);
 	}
 };
-module.exports = { getAllUser, addUser, deleteUser, loginUser, getSingleUser };
+const getAllQuotes = async (req, res) => {
+	try {
+		const quotes = await Quotes.findAll();
+		res.status(200).send({ success: true, quotes });
+	} catch (err) {
+		console.log(err);
+	}
+};
+const addQuotes = async (req, res) => {
+	try {
+		const { email } = req.body;
+		await Quotes.create(email);
+		res.status(200).send({ success: true });
+	} catch (err) {
+		console.log(err);
+	}
+};
+const approveAdmin = async (req, res) => {
+	try {
+		const id = req.params.id;
+
+		await User.update({ approved: 1 }, { where: { id: id } });
+		res.status(200).send({ success: true });
+	} catch (err) {
+		console.log(err);
+	}
+};
+module.exports = {
+	getAllUser,
+	addUser,
+	deleteUser,
+	loginUser,
+	getSingleUser,
+	getAllQuotes,
+	addQuotes,
+	approveAdmin,
+};

@@ -148,6 +148,10 @@ router.delete(
 	"/delete-client-testimonial-item/:id",
 	clientTestimonial.deleteClientTestimonialsItem
 );
+router.put(
+	"/approve-client-testimonial/:id",
+	clientTestimonial.approveClientTestimonialsItem
+);
 
 //testimonials
 router.get("/get-testimonial-items", testimonial.getTestimonialItems);

@@ -33,6 +33,7 @@ db.testimonial = require("./Testimonials")(sequelize, DataTypes);
 db.blogImage = require("./BlogImage")(sequelize, DataTypes);
 db.raining = require("./RainingDiscounts")(sequelize, DataTypes);
 db.happyClients = require("./HappyClients")(sequelize, DataTypes);
+db.quotes = require("./Quotes")(sequelize, DataTypes);
 
 db.blog.hasMany(db.comment, {
 	foreignKey: "blog_id",

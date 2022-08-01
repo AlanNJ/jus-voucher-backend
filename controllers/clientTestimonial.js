@@ -4,7 +4,17 @@ const DeleteFile = require("../middlewares/imageDeleter");
 const getClientTestimonialsItems = async (req, res) => {
 	try {
 		const item = await ClientTestimonials.findAll();
-		res.status(200).send(item);
+		const approveClientTestimonialsItem = await ClientTestimonials.findAll({
+			where: { approved: 1 },
+		});
+		const unapproveClientTestimonialsItem = await ClientTestimonials.findAll({
+			where: { approved: 0 },
+		});
+		res.status(200).send({
+			item,
+			approveClientTestimonialsItem,
+			unapproveClientTestimonialsItem,
+		});
 	} catch (err) {
 		console.log(err);
 	}
@@ -70,7 +80,7 @@ const approveClientTestimonialsItem = async (req, res) => {
 	try {
 		const id = req.params.id;
 
-		await ClientTestimonials.update({ approved: true }, { where: { id: id } });
+		await ClientTestimonials.update({ approved: 1 }, { where: { id: id } });
 	} catch (err) {
 		console.log(err);
 	}

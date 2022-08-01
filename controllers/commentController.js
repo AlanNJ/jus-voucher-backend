@@ -5,10 +5,10 @@ const Comment = db.comment;
 const getAllcomments = async (req, res) => {
 	const id = req.params.id;
 	const approvedComments = await Comment.findAll({
-		where: { blog_id: id, approved: true },
+		where: { blog_id: id, approved: 1 },
 	});
 	const unapprovedComments = await Comment.findAll({
-		where: { blog_id: id, approved: false },
+		where: { blog_id: id, approved: 0 },
 	});
 	res.status(200).send({ approvedComments, unapprovedComments });
 };
@@ -25,10 +25,14 @@ const approveComment = async (req, res) => {
 	try {
 		console.log("hello");
 		const id = req.params.id;
+		console.log(id);
 
-		await Comment.update({ approved: true }, { where: { id: id } }).then(() => {
-			res.status(200).send({ success: true });
-		});
+		await Comment.update({ approved: 1 }, { where: { id: id } }).then(
+			(response) => {
+				console.log(response);
+				res.status(200).send({ success: true });
+			}
+		);
 	} catch (err) {
 		console.log(err);
 	}

@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
 			password: {
 				type: DataTypes.STRING,
 			},
+			approved: {
+				type: DataTypes.INTEGER,
+				defaultValue: 0,
+			},
 		},
 		{
 			timestamps: false,
